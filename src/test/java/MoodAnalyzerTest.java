@@ -17,4 +17,15 @@ public class MoodAnalyzerTest {
         String mood = moodAnalyzer.createMoodAnalyzer();
         Assert.assertEquals("Sad", mood);
     }
+
+    @Test
+    public void givenNullShouldReturnHappy() {
+        try {
+            MoodAnalyzer moodAnalyzer = new MoodAnalyzer(null);
+            moodAnalyzer.createMoodAnalyzer();
+        } catch (NullPointerException e) {
+            Assert.assertEquals("Happy", null);
+        }
+    }
+
 }
