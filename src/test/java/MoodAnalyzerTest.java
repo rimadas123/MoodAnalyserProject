@@ -2,7 +2,6 @@ import com.bridgelabz.moodAnalyzer.MoodAnalyzer;
 import com.bridgelabz.moodAnalyzer.MoodAnalyzerException;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 public class MoodAnalyzerTest {
 
@@ -30,4 +29,13 @@ public class MoodAnalyzerTest {
         }
     }
 
+    @Test
+    public void givenEmptyShouldThrowException() {
+        MoodAnalyzer moodAnalyzer = new MoodAnalyzer();
+        try {
+            moodAnalyzer.createMoodAnalyzer();
+        } catch (MoodAnalyzerException e) {
+            Assert.assertEquals(MoodAnalyzerException.ExceptionType.ENTERED_EMPTY,e.exceptiontype);
+        }
+    }
 }
