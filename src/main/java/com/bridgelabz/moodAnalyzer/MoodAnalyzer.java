@@ -10,8 +10,16 @@ public class MoodAnalyzer {
         this.message = message;
     }
 
-    public String createMoodAnalyzer() {
+    public String MoodAnalyzer(String message) throws MoodAnalyzerException {
+        this.message=message;
+        return MoodAnalyzer(null);
+    }
+
+    public String createMoodAnalyzer() throws MoodAnalyzerException{
         try {
+            if (message.length() == 0){
+                throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.ENTERED_EMPTY,"Please enter proper mood");
+            }
             if (message.contains("Happy")) {
                 mood = "Happy";
             } else if (message.contains("Sad")) {
@@ -19,7 +27,7 @@ public class MoodAnalyzer {
             }
             return mood;
         } catch (NullPointerException e) {
-            return null;
+            throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.ENTERED_NULL,"Please enter proper mood");
         }
     }
 }
