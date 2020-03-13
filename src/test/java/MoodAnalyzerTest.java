@@ -1,7 +1,11 @@
+import com.bridgelabz.moodAnalyzer.MoodAnalyserFactory;
 import com.bridgelabz.moodAnalyzer.MoodAnalyzer;
 import com.bridgelabz.moodAnalyzer.MoodAnalyzerException;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 public class MoodAnalyzerTest {
 
@@ -36,6 +40,18 @@ public class MoodAnalyzerTest {
             moodAnalyzer.createMoodAnalyzer();
         } catch (MoodAnalyzerException e) {
             Assert.assertEquals(MoodAnalyzerException.ExceptionType.ENTERED_EMPTY,e.exceptiontype);
+        }
+    }
+
+    @Test
+    public void givenClassMoodAnalyser_whenProper_ShouldReturnObject() {
+        try {
+            MoodAnalyzer moodAnalyzer = new MoodAnalyzer();
+            MoodAnalyzer analyzer = MoodAnalyserFactory.createMoodAnalyser();
+            boolean result = analyzer.equals(moodAnalyzer);
+            Assert.assertEquals(true,result);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
