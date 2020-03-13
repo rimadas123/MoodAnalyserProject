@@ -35,7 +35,7 @@ public class MoodAnalyzerTest {
 
     @Test
     public void givenEmptyShouldThrowException() {
-        MoodAnalyzer moodAnalyzer = new MoodAnalyzer();
+        MoodAnalyzer moodAnalyzer = new MoodAnalyzer(" ");
         try {
             moodAnalyzer.createMoodAnalyzer();
         } catch (MoodAnalyzerException e) {
@@ -82,6 +82,15 @@ public class MoodAnalyzerTest {
             Assert.assertEquals(true, result);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenMoodAnalyzerWithParameterizedConstructor_whenImproper_ShouldThrowException() throws MoodAnalyzerException{
+        try {
+            MoodAnalyserFactory.getClassWithParameter("com.bridgelabz.moodAnalyser.oodAnalyser",String.class,"Happy");
+        } catch (MoodAnalyzerException e) {
+            Assert.assertEquals(MoodAnalyzerException.ExceptionType.NO_SUCH_CLASS,e.exceptiontype);
         }
     }
 }
