@@ -68,4 +68,18 @@ public class MoodAnalyserFactory {
         }
         return null;
     }
+
+    //To check the parameter with parameterized constructor passing improper constructor parameter
+    public static MoodAnalyzer getConstructorWithParameter(String message, Class<String> stringClass,String mood) throws MoodAnalyzerException {
+        try {
+            Constructor constructor = Class.forName("com.bridgelabz.moodAnalyzer.MoodAnalyzer").getConstructor(String.class);
+            Object obj = constructor.newInstance(mood);
+            return (MoodAnalyzer) obj;
+        } catch (NoSuchMethodException e) {
+            throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.NO_SUCH_METHOD, e.getMessage());
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
