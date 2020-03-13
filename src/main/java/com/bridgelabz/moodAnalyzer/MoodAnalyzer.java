@@ -12,11 +12,6 @@ public class MoodAnalyzer {
         this.message = message;
     }
 
-    public String MoodAnalyzer(String message) throws MoodAnalyzerException {
-        this.message=message;
-        return MoodAnalyzer(null);
-    }
-
     public String createMoodAnalyzer() throws MoodAnalyzerException{
         try {
             if (message.length() == 0){
@@ -29,7 +24,7 @@ public class MoodAnalyzer {
             }
             return mood;
         } catch (NullPointerException e) {
-            throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.ENTERED_EMPTY,"Please enter proper mood");
+            throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.ENTERED_NULL,"Please enter proper mood");
         }
     }
 }
