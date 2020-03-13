@@ -4,9 +4,6 @@ import com.bridgelabz.moodAnalyzer.MoodAnalyzerException;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
 public class MoodAnalyzerTest {
 
     @Test
@@ -86,11 +83,20 @@ public class MoodAnalyzerTest {
     }
 
     @Test
-    public void givenMoodAnalyzerWithParameterizedConstructor_whenImproper_ShouldThrowException() throws MoodAnalyzerException{
+    public void givenMoodAnalyzerWithParameterizedConstructor_whenImproper_ShouldThrowException() throws MoodAnalyzerException {
         try {
-            MoodAnalyserFactory.getClassWithParameter("com.bridgelabz.moodAnalyser.oodAnalyser",String.class,"Happy");
+            MoodAnalyserFactory.getClassWithParameter("com.bridgelabz.moodAnalyser.oodAnalser", String.class, "Happy");
         } catch (MoodAnalyzerException e) {
-            Assert.assertEquals(MoodAnalyzerException.ExceptionType.NO_SUCH_CLASS,e.exceptiontype);
+            Assert.assertEquals(MoodAnalyzerException.ExceptionType.NO_SUCH_CLASS, e.exceptiontype);
+        }
+    }
+
+    @Test
+    public void givenClassWhenConstructor_notProper_ShouldThrowException() throws MoodAnalyzerException {
+        try {
+            MoodAnalyserFactory.getConstructorWithParameter("mmoAnalyser",String.class,"Happy");
+        } catch (MoodAnalyzerException e) {
+            Assert.assertEquals(MoodAnalyzerException.ExceptionType.NO_SUCH_METHOD,e.exceptiontype);
         }
     }
 }
