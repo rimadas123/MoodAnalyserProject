@@ -54,4 +54,13 @@ public class MoodAnalyzerTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void givenClassMoodAnalyser_whenImproper_ShouldThrowException() {
+        try {
+            MoodAnalyserFactory.getConstructor("com.bridgelabz.moodAnalyser.oodAnalyser",String.class);
+        } catch (MoodAnalyzerException e) {
+            Assert.assertEquals(MoodAnalyzerException.ExceptionType.NO_SUCH_CLASS,e.exceptiontype);
+        }
+    }
 }
