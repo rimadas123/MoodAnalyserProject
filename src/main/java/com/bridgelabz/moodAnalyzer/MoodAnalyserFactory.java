@@ -41,4 +41,17 @@ public class MoodAnalyserFactory {
         }
         return null;
     }
+
+    //Parametrized Constructor
+    public static MoodAnalyzer createMoodAnalyser(String message) {
+        try {
+            Class cls = Class.forName("com.bridgelabz.moodAnalyzer.MoodAnalyzer");
+            Constructor con = cls.getConstructor(String.class);
+            Object obj = con.newInstance(message);
+            return (MoodAnalyzer) obj;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
