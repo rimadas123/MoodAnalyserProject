@@ -58,9 +58,18 @@ public class MoodAnalyzerTest {
     @Test
     public void givenClassMoodAnalyser_whenImproper_ShouldThrowException() {
         try {
-            MoodAnalyserFactory.getConstructor("com.bridgelabz.moodAnalyser.oodAnalyser",String.class);
+            MoodAnalyserFactory.getClass("com.bridgelabz.moodAnalyser.oodAnalyser",String.class);
         } catch (MoodAnalyzerException e) {
             Assert.assertEquals(MoodAnalyzerException.ExceptionType.NO_SUCH_CLASS,e.exceptiontype);
+        }
+    }
+
+    @Test
+    public void givenClassWhenConstructor_NotProper_ShouldThrowException() {
+        try {
+            MoodAnalyserFactory.getTheConstructor("mmodAnalyser",String.class);
+        } catch (MoodAnalyzerException e) {
+            Assert.assertEquals(MoodAnalyzerException.ExceptionType.NO_SUCH_METHOD,e.exceptiontype);
         }
     }
 }
