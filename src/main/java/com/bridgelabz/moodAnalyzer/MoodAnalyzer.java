@@ -14,9 +14,9 @@ public class MoodAnalyzer {
         this.message=message;
     }
 
-    public String MoodAnalyzer(String message) throws MoodAnalyzerException {
+    public String createMoodAnalyzer(String message) throws MoodAnalyzerException {
         this.message = message;
-        return message;
+        return createMoodAnalyzer();
     }
 
     public String createMoodAnalyzer() throws MoodAnalyzerException {
