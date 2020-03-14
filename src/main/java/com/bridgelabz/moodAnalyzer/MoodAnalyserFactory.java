@@ -71,14 +71,15 @@ public class MoodAnalyserFactory {
         return null;
     }
 
-    public static void  modifyMood(MoodAnalyzer moodAnalyzer,String fieldName, String fieldValue) {
+    public static void modifyMood(MoodAnalyzer moodAnalyzer,String fieldName, String fieldValue) throws MoodAnalyzerException {
         try {
             Field field = moodAnalyzer.getClass().getDeclaredField(fieldName);
             field.setAccessible(true);
             field.set(moodAnalyzer,fieldValue);
+        } catch (NoSuchFieldException e) {
+          throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.NO_SUCH_FIELD, "no such field exists");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 }
