@@ -126,4 +126,17 @@ public class MoodAnalyzerTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void setHappyMessage_withReflector_ShouldReturnHappy() {
+        try {
+            Constructor constructor = MoodAnalyserFactory.getConstructor("com.bridgelabz.moodAnalyzer.MoodAnalyzer",String.class);
+            Object obj = constructor.newInstance("I m in a Happy mood");
+            MoodAnalyserFactory.modifyMood((MoodAnalyzer) obj,"message","Happy");
+            String mood = MoodAnalyserFactory.invokeMethod((MoodAnalyzer) obj,"createMoodAnalyzer");
+            Assert.assertEquals("Happy",mood);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
