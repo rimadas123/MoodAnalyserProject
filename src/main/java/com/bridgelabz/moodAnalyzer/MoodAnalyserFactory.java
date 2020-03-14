@@ -2,6 +2,7 @@ package com.bridgelabz.moodAnalyzer;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public class MoodAnalyserFactory {
     // Default constructor
@@ -11,32 +12,6 @@ public class MoodAnalyserFactory {
             Object obj = constructor.newInstance();
             return (MoodAnalyzer) obj;
         } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    // To check improper class name
-    public static MoodAnalyzer getClass(String s, Class cls) throws MoodAnalyzerException {
-        try {
-            Constructor constructor = Class.forName("com.bridgelabz.moodAnalyzer.MoodAnalyzer").getConstructor();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.NO_SUCH_CLASS, e.getMessage());
-        }
-        return null;
-    }
-
-    //To check improper constructor parameter
-    public static MoodAnalyzer getTheConstructor(String message, Class<String> stringClass) throws MoodAnalyzerException {
-        try {
-            Constructor constructor = Class.forName("com.bridgelabz.moodAnalyzer.MoodAnalyzer").getConstructor();
-            Object instance = constructor.newInstance();
-            return (MoodAnalyzer) instance;
-        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
-            throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.NO_SUCH_METHOD,e.getMessage());
-        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return null;
@@ -55,28 +30,40 @@ public class MoodAnalyserFactory {
         return null;
     }
 
-    // to check the class with parameterized constructor passing improper name
-    public static MoodAnalyzer getClassWithParameter(String s, Class cls,String mood) throws MoodAnalyzerException {
+    //To return class object and constructor parameter
+    public static Constructor<?> getConstructor(String s, Class cls) throws MoodAnalyzerException {
+        try {
+            Class aClass = Class.forName(s);
+            return aClass.getConstructor(cls);
+        } catch (ClassNotFoundException e) {
+            throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.NO_SUCH_CLASS, "no such class found");
+        }
+        catch (NoSuchMethodException e) {
+            throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.NO_SUCH_METHOD,"no such method found");
+        }
+    }
+
+    //To check the class object and parameter with parameterized constructor passing improper constructor parameter
+    public static Object getConstructorWithParameter(String message, Class<String> stringClass,String mood) throws MoodAnalyzerException {
         try {
             Constructor constructor = Class.forName("com.bridgelabz.moodAnalyzer.MoodAnalyzer").getConstructor(String.class);
             Object obj = constructor.newInstance(mood);
-            return (MoodAnalyzer) obj;
+            return (Constructor) obj;
         } catch (ClassNotFoundException e) {
-            throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.NO_SUCH_CLASS, e.getMessage());
+            throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.NO_SUCH_CLASS, "no such class found");
+        }
+        catch (NoSuchMethodException e) {
+            throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.NO_SUCH_METHOD, "no such method found");
         } catch (Exception e){
             e.printStackTrace();
         }
         return null;
     }
 
-    //To check the parameter with parameterized constructor passing improper constructor parameter
-    public static MoodAnalyzer getConstructorWithParameter(String message, Class<String> stringClass,String mood) throws MoodAnalyzerException {
+    public static String invokeMethod(MoodAnalyzer moodAnalyzer, String methodName) {
         try {
-            Constructor constructor = Class.forName("com.bridgelabz.moodAnalyzer.MoodAnalyzer").getConstructor(String.class);
-            Object obj = constructor.newInstance(mood);
-            return (MoodAnalyzer) obj;
-        } catch (NoSuchMethodException e) {
-            throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.NO_SUCH_METHOD, e.getMessage());
+            Method method = moodAnalyzer.getClass().getMethod(methodName);
+            return (String) method.invoke(moodAnalyzer);
         } catch (Exception e){
             e.printStackTrace();
         }
