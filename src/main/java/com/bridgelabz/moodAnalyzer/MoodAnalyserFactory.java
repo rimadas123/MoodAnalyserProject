@@ -76,6 +76,8 @@ public class MoodAnalyserFactory {
             Field field = moodAnalyzer.getClass().getDeclaredField(fieldName);
             field.setAccessible(true);
             field.set(moodAnalyzer,fieldValue);
+        } catch (NullPointerException e) {
+          throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.ENTERED_NULL, "enter proper mood");
         } catch (NoSuchFieldException e) {
           throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.NO_SUCH_FIELD, "no such field exists");
         } catch (Exception e) {
