@@ -152,4 +152,17 @@ public class MoodAnalyzerTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void setNullMessage_withReflector_ShouldThrowException() throws MoodAnalyzerException{
+        try {
+         Constructor constructor = MoodAnalyserFactory.getConstructor("com.bridgelabz.moodAnalyzer.MoodAnalyzer",String.class);
+         Object obj = constructor.newInstance("I m in a Happy mood");
+         MoodAnalyserFactory.modifyMood((MoodAnalyzer) obj,"message","null");
+        } catch (MoodAnalyzerException e) {
+         Assert.assertEquals(MoodAnalyzerException.ExceptionType.ENTERED_NULL,e.exceptiontype);
+        } catch (Exception e) {
+         e.printStackTrace();
+        }
+    }
 }
