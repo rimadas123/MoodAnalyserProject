@@ -139,4 +139,17 @@ public class MoodAnalyzerTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void setField_whenImproper_ShouldThrowException() throws MoodAnalyzerException {
+        try{
+            Constructor constructor = MoodAnalyserFactory.getConstructor("com.bridgelabz.moodAnalyzer.MoodAnalyzer",String.class);
+            Object obj = constructor.newInstance("I m in a Happy mood");
+            MoodAnalyserFactory.modifyMood((MoodAnalyzer) obj,"msg","Happy");
+        } catch (MoodAnalyzerException e) {
+            Assert.assertEquals(MoodAnalyzerException.ExceptionType.NO_SUCH_FIELD,e.exceptiontype);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
