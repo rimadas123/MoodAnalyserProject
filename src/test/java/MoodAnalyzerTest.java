@@ -103,9 +103,9 @@ public class MoodAnalyzerTest {
     }
 
     @Test
-    public void givenHappyMessage_whenProper_ShouldReturnHappyMood() {
+    public void givenHappyMessage_whenProper_ShouldReturnHappyMood() throws MoodAnalyzerException{
         try {
-            Constructor<?> constructor = MoodAnalyserFactory.getConstructor("MoodAnalyzer",String.class);
+            Constructor<?> constructor = MoodAnalyserFactory.getConstructor("com.bridgelabz.moodAnalyzer.MoodAnalyzer",String.class);
             Object obj = constructor.newInstance("I am in a Happy mood");
             String analyser = MoodAnalyserFactory.invokeMethod((MoodAnalyzer) obj,"createMoodAnalyzer");
             Assert.assertEquals("Happy",analyser);
@@ -114,5 +114,16 @@ public class MoodAnalyzerTest {
         }
     }
 
-
+    @Test
+    public void givenHappyMessage_whenImproperMethod_ShouldThrowException() throws MoodAnalyzerException{
+        try {
+            Constructor<?> constructor = MoodAnalyserFactory.getConstructor("com.bridgelabz.moodAnalyzer.MoodAnalyzer",String.class);
+            Object obj = constructor.newInstance("I am in a Happy mood");
+            MoodAnalyserFactory.invokeMethod((MoodAnalyzer) obj,"creMoodAnalyzer");
+        } catch (MoodAnalyzerException e) {
+            Assert.assertEquals(MoodAnalyzerException.ExceptionType.NO_SUCH_METHOD,e.exceptiontype);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
