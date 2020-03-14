@@ -1,6 +1,4 @@
 package com.bridgelabz.moodAnalyzer;
-
-import java.util.EmptyStackException;
 import java.util.Objects;
 
 public class MoodAnalyzer {
@@ -48,4 +46,5 @@ public class MoodAnalyzer {
     public int hashCode() {
         return Objects.hash(message, mood);
     }
+
 }
