@@ -1,6 +1,7 @@
 package com.bridgelabz.moodAnalyzer;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -69,4 +70,15 @@ public class MoodAnalyserFactory {
         }
         return null;
     }
+
+    public static void  modifyMood(MoodAnalyzer moodAnalyzer,String fieldName, String fieldValue) {
+        try {
+            Field field = moodAnalyzer.getClass().getDeclaredField(fieldName);
+            field.setAccessible(true);
+            field.set(moodAnalyzer,fieldValue);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
