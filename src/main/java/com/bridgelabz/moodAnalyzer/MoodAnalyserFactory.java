@@ -33,7 +33,7 @@ public class MoodAnalyserFactory {
     //To return class object and constructor parameter
     public static Constructor<?> getConstructor(String s, Class cls) throws MoodAnalyzerException {
         try {
-            Class aClass = Class.forName(s);
+            Class aClass = Class.forName("com.bridgelabz.moodAnalyzer.MoodAnalyzer");
             return aClass.getConstructor(cls);
         } catch (ClassNotFoundException e) {
             throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.NO_SUCH_CLASS, "no such class found");
@@ -51,8 +51,7 @@ public class MoodAnalyserFactory {
             return (Constructor) obj;
         } catch (ClassNotFoundException e) {
             throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.NO_SUCH_CLASS, "no such class found");
-        }
-        catch (NoSuchMethodException e) {
+        } catch (NoSuchMethodException e) {
             throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.NO_SUCH_METHOD, "no such method found");
         } catch (Exception e){
             e.printStackTrace();
@@ -60,10 +59,11 @@ public class MoodAnalyserFactory {
         return null;
     }
 
-    public static String invokeMethod(MoodAnalyzer moodAnalyzer, String methodName) {
+    public static String invokeMethod(MoodAnalyzer moodAnalyzer, String methodName) throws MoodAnalyzerException {
         try {
-            Method method = moodAnalyzer.getClass().getMethod(methodName);
-            return (String) method.invoke(moodAnalyzer);
+            return (String) moodAnalyzer.getClass().getMethod(methodName).invoke(moodAnalyzer);
+        } catch (NoSuchMethodException e) {
+            throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.NO_SUCH_METHOD,"no such method found");
         } catch (Exception e){
             e.printStackTrace();
         }
